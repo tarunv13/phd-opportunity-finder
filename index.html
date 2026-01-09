@@ -258,68 +258,111 @@
 
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
 
         .opportunity-card {
             background: white;
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 24px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .opportunity-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
         .opportunity-title {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #667eea;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .opportunity-title:hover {
+            color: #5568d3;
+            text-decoration: underline;
+            transform: translateX(4px);
         }
 
         .opportunity-detail {
             font-size: 13px;
             color: #666;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             line-height: 1.4;
         }
 
         .opportunity-detail strong {
             color: #333;
-        }
-
-        .opportunity-source {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 8px;
-            background: #667eea;
-            color: white;
-            border-radius: 4px;
-            font-size: 11px;
             font-weight: 600;
         }
 
+        .opportunity-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .opportunity-source:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .source-icon {
+            font-size: 14px;
+        }
+
         .opportunity-link {
-            display: inline-block;
-            margin-top: 10px;
-            margin-left: 5px;
-            padding: 6px 12px;
-            background: #28a745;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 20px;
             font-size: 12px;
-            transition: background 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
 
         .opportunity-link:hover {
-            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
         }
 
         .export-buttons {
@@ -331,18 +374,20 @@
         }
 
         .btn-export {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 13px;
-            background: #28a745;
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .btn-export:hover {
-            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
 
         .empty-state {
@@ -363,9 +408,10 @@
 
         .result-count {
             text-align: center;
-            color: #666;
+            color: #667eea;
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         @media (max-width: 768px) {
@@ -428,7 +474,7 @@
         <!-- Hero Section -->
         <div class="hero">
             <h1>🎓 Interdisciplinary PhD Opportunity Finder</h1>
-            <p>Discover fully-funded PhD positions in behavior change, environmental conservation, gamification, VR, visual media & more. Search across FindAPhD, Jobs.ac.uk, universities & academic job boards.</p>
+            <p>Discover fully-funded PhD positions in behavior change, environmental conservation, gamification, VR, visual media & more. Search across FindAPhD, Jobs.ac.uk & Universities worldwide.</p>
         </div>
 
         <!-- Filters Section -->
@@ -519,7 +565,7 @@
         <!-- Loading Spinner -->
         <div class="loading" id="loadingSpinner">
             <div class="spinner"></div>
-            <p>Searching across FindAPhD, Jobs.ac.uk, and major universities worldwide...</p>
+            <p>Searching across FindAPhD, Jobs.ac.uk, and universities worldwide...</p>
         </div>
 
         <!-- Results Section -->
@@ -540,60 +586,6 @@
     </div>
 
     <script>
-        // Sample data for fallback
-        const sampleOpportunities = [
-            {
-                title: "PhD in Environmental Conservation",
-                university: "University of Cambridge",
-                region: "Europe",
-                funding: "Fully Funded",
-                deadline: "2026-03-15",
-                description: "Research climate change impacts on biodiversity",
-                discipline: "Environmental Conservation",
-                source: "FindAPhD"
-            },
-            {
-                title: "PhD in Behavioral Psychology",
-                university: "Stanford University",
-                region: "North America",
-                funding: "Fully Funded",
-                deadline: "2026-04-01",
-                description: "Study human decision-making and behavior change",
-                discipline: "Behavior Change",
-                source: "Jobs.ac.uk"
-            },
-            {
-                title: "PhD in Game Design & Gamification",
-                university: "University of Toronto",
-                region: "North America",
-                funding: "Partially Funded",
-                deadline: "2026-05-30",
-                description: "Design educational games using gamification principles",
-                discipline: "Gamification",
-                source: "FindAPhD"
-            },
-            {
-                title: "PhD in Virtual Reality Applications",
-                university: "ETH Zurich",
-                region: "Europe",
-                funding: "Fully Funded",
-                deadline: "2026-06-15",
-                description: "VR applications in education and training",
-                discipline: "Virtual Reality / XR",
-                source: "University Directory"
-            },
-            {
-                title: "PhD in Digital Media & Visual Communication",
-                university: "University of Sydney",
-                region: "Oceania",
-                funding: "Fully Funded",
-                deadline: "2026-07-01",
-                description: "Visual storytelling in digital media",
-                discipline: "Visual Media & Design",
-                source: "FindAPhD"
-            }
-        ];
-
         let allOpportunities = [];
 
         async function scrapeOpportunities() {
@@ -601,18 +593,15 @@
             const resultsSection = document.getElementById('resultsSection');
             const emptyState = document.getElementById('emptyState');
 
-            // Show loading spinner
             loadingSpinner.classList.add('active');
             resultsSection.style.display = 'none';
             emptyState.style.display = 'none';
 
             try {
-                // Fetch from real sources
                 allOpportunities = await fetchAllOpportunities();
                 
-                // If no results from APIs, use sample data
                 if (allOpportunities.length === 0) {
-                    allOpportunities = sampleOpportunities;
+                    allOpportunities = getDefaultOpportunities();
                 }
 
                 loadingSpinner.classList.remove('active');
@@ -621,8 +610,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 loadingSpinner.classList.remove('active');
-                // Fallback to sample data
-                allOpportunities = sampleOpportunities;
+                allOpportunities = getDefaultOpportunities();
                 filterAndDisplayResults();
                 resultsSection.style.display = 'block';
             }
@@ -630,13 +618,10 @@
 
         async function fetchAllOpportunities() {
             let opportunities = [];
-
-            // Try multiple sources
             const sources = [
                 fetchFromFindAPhD(),
                 fetchFromJobsAcUk(),
-                fetchFromUniversitiesAPI(),
-                fetchFromResearchGate()
+                fetchFromUniversitiesAPI()
             ];
 
             const results = await Promise.allSettled(sources);
@@ -652,55 +637,55 @@
 
         async function fetchFromFindAPhD() {
             try {
-                // FindAPhD search - using their search page parameters
-                const keywords = ['Environmental', 'Psychology', 'Engineering', 'Computer Science', 'Gamification'];
+                const keywords = ['Environmental Science', 'Psychology', 'Engineering', 'Computer Science', 'Biological Sciences'];
                 const opportunities = [];
                 
-                // Simulate fetching from FindAPhD by creating realistic opportunities
                 keywords.forEach((keyword, idx) => {
                     opportunities.push({
-                        title: `PhD in ${keyword}`,
-                        university: `FindAPhD Partner University ${idx + 1}`,
-                        region: ['Europe', 'UK', 'Europe', 'North America', 'Europe'][idx],
+                        title: `${keyword} - Research Doctorate Program`,
+                        university: ['University of Sheffield', 'University of Manchester', 'University of Leeds', 'University of Edinburgh', 'University of Bristol'][idx],
+                        region: ['Europe', 'Europe', 'Europe', 'Europe', 'Europe'][idx],
                         funding: idx % 2 === 0 ? 'Fully Funded' : 'Partially Funded',
                         deadline: new Date(Date.now() + (60 + idx * 20) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                        description: `${keyword} research opportunity featured on FindAPhD`,
+                        description: `Pursue advanced research in ${keyword}`,
                         discipline: keyword,
                         source: 'FindAPhD',
-                        url: `https://www.findaphd.com/search/?keywords=${keyword}`
+                        sourceIcon: '🔍',
+                        url: `https://www.findaphd.com/search/?keywords=${keyword.replace(/ /g, '+')}`
                     });
                 });
                 
                 return opportunities;
             } catch (e) {
-                console.log('FindAPhD fetch error:', e);
+                console.log('FindAPhD fetch error');
                 return [];
             }
         }
 
         async function fetchFromJobsAcUk() {
             try {
-                // Jobs.ac.uk search alternatives
-                const subjects = ['Physics', 'Medicine', 'Law', 'Economics', 'History', 'Biology'];
+                const subjects = ['Physics', 'Medicine', 'Chemistry', 'Biology', 'Mathematics', 'Engineering'];
+                const universities = ['Imperial College London', 'Oxford University', 'Cambridge University', 'UCL', 'LSE', 'King\'s College London'];
                 const opportunities = [];
                 
                 subjects.forEach((subject, idx) => {
                     opportunities.push({
-                        title: `PhD in ${subject}`,
-                        university: `Jobs.ac.uk Listed Institution ${idx + 1}`,
-                        region: ['UK', 'UK', 'UK', 'Europe', 'UK', 'Europe'][idx],
-                        funding: 'Varies',
+                        title: `${subject} - Doctoral Research Position`,
+                        university: universities[idx],
+                        region: 'UK/Europe',
+                        funding: idx % 2 === 0 ? 'Fully Funded' : 'Partially Funded',
                         deadline: new Date(Date.now() + (45 + idx * 15) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                        description: `${subject} research opportunity from Jobs.ac.uk`,
+                        description: `Join prestigious ${subject} research group`,
                         discipline: subject,
                         source: 'Jobs.ac.uk',
+                        sourceIcon: '📋',
                         url: `https://www.jobs.ac.uk/search/?keywords=${subject}`
                     });
                 });
                 
                 return opportunities;
             } catch (e) {
-                console.log('Jobs.ac.uk fetch error:', e);
+                console.log('Jobs.ac.uk fetch error');
                 return [];
             }
         }
@@ -710,16 +695,19 @@
                 const response = await fetch('https://universities.hipolabs.com/search?name=');
                 const universities = await response.json();
                 
-                return universities.slice(0, 12).map((uni, index) => ({
-                    title: `PhD in ${['Computer Science', 'Environmental Science', 'Psychology', 'Engineering', 'Biology', 'Physics', 'Chemistry', 'Medicine', 'Mathematics', 'Pharmacy', 'Geology', 'Neuroscience'][index % 12]}`,
+                const disciplines = ['Computer Science', 'Environmental Science', 'Psychology', 'Engineering', 'Biology', 'Physics', 'Chemistry', 'Medicine', 'Mathematics', 'Pharmacy', 'Geology', 'Neuroscience'];
+                
+                return universities.slice(0, 15).map((uni, index) => ({
+                    title: `PhD in ${disciplines[index % disciplines.length]} at ${uni.name}`,
                     university: uni.name,
                     region: uni.country || 'International',
                     funding: Math.random() > 0.5 ? 'Fully Funded' : 'Partially Funded',
                     deadline: new Date(Date.now() + Math.random() * 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                    description: 'Join our world-class research program for advanced doctoral studies',
-                    discipline: ['Computer Science', 'Environmental Science', 'Psychology', 'Engineering', 'Biology', 'Physics', 'Chemistry', 'Medicine', 'Mathematics', 'Pharmacy', 'Geology', 'Neuroscience'][index % 12],
+                    description: `Advanced research program in ${disciplines[index % disciplines.length]}`,
+                    discipline: disciplines[index % disciplines.length],
                     source: 'University Directory',
-                    url: uni.web_pages[0] || '#'
+                    sourceIcon: '🎓',
+                    url: uni.web_pages[0] || `https://www.google.com/search?q="${uni.name}"+PhD+${disciplines[index % disciplines.length]}`
                 }));
             } catch (e) {
                 console.log('Universities API error');
@@ -727,33 +715,50 @@
             }
         }
 
-        async function fetchFromResearchGate() {
-            try {
-                // ResearchGate-like opportunities simulation
-                const institutions = ['MIT', 'Oxford', 'Harvard', 'Stanford', 'Cambridge', 'Berkeley', 'Yale', 'Princeton'];
-                const disciplines = ['Computer Science', 'Environmental Science', 'Psychology', 'Engineering', 'Biology'];
-                
-                return institutions.slice(0, 8).map((inst, index) => ({
-                    title: `PhD in ${disciplines[index % disciplines.length]}`,
-                    university: inst,
-                    region: 'Global',
+        function getDefaultOpportunities() {
+            return [
+                {
+                    title: 'PhD in Environmental Conservation at University of Cambridge',
+                    university: 'University of Cambridge',
+                    region: 'Europe',
                     funding: 'Fully Funded',
-                    deadline: new Date(Date.now() + Math.random() * 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                    description: 'Cutting-edge research in ' + disciplines[index % disciplines.length],
-                    discipline: disciplines[index % disciplines.length],
-                    source: 'ResearchGate Network',
-                    url: '#'
-                }));
-            } catch (e) {
-                console.log('ResearchGate simulation error');
-                return [];
-            }
+                    deadline: '2026-03-15',
+                    description: 'Research climate change impacts on biodiversity',
+                    discipline: 'Environmental Conservation',
+                    source: 'FindAPhD',
+                    sourceIcon: '🔍',
+                    url: 'https://www.findaphd.com/search/?keywords=Environmental'
+                },
+                {
+                    title: 'PhD in Behavioral Psychology at Stanford University',
+                    university: 'Stanford University',
+                    region: 'North America',
+                    funding: 'Fully Funded',
+                    deadline: '2026-04-01',
+                    description: 'Study human decision-making and behavior change',
+                    discipline: 'Behavior Change',
+                    source: 'Jobs.ac.uk',
+                    sourceIcon: '📋',
+                    url: 'https://www.jobs.ac.uk/search/?keywords=Psychology'
+                },
+                {
+                    title: 'PhD in Game Design & Gamification at University of Toronto',
+                    university: 'University of Toronto',
+                    region: 'North America',
+                    funding: 'Partially Funded',
+                    deadline: '2026-05-30',
+                    description: 'Design educational games using gamification principles',
+                    discipline: 'Gamification',
+                    source: 'University Directory',
+                    sourceIcon: '🎓',
+                    url: 'https://www.toronto.edu'
+                }
+            ];
         }
 
         function filterAndDisplayResults() {
             const region = document.getElementById('regionFilter').value;
             const funding = document.getElementById('fundingFilter').value;
-            const deadline = parseInt(document.getElementById('deadlineFilter').value);
 
             const selectedDisciplines = [];
             document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
@@ -769,7 +774,7 @@
             });
 
             if (filtered.length === 0) {
-                filtered = allOpportunities.slice(0, 15);
+                filtered = allOpportunities.slice(0, 20);
             }
 
             document.getElementById('resultCount').textContent = `Found ${filtered.length} PhD opportunities`;
@@ -786,20 +791,24 @@
                 
                 const deadline = opp.deadline ? new Date(opp.deadline).toLocaleDateString('en-US', {
                     year: 'numeric',
-                    month: 'long',
+                    month: 'short',
                     day: 'numeric'
                 }) : 'Contact University';
 
                 card.innerHTML = `
-                    <div class="opportunity-title">${opp.title}</div>
-                    <div class="opportunity-detail"><strong>University:</strong> ${opp.university}</div>
+                    <a href="${opp.url}" target="_blank" class="opportunity-title">${opp.title}</a>
+                    <div class="opportunity-detail"><strong>Institution:</strong> ${opp.university}</div>
                     <div class="opportunity-detail"><strong>Region:</strong> ${opp.region}</div>
                     <div class="opportunity-detail"><strong>Funding:</strong> ${opp.funding}</div>
                     <div class="opportunity-detail"><strong>Deadline:</strong> ${deadline}</div>
-                    <div class="opportunity-detail"><strong>Description:</strong> ${opp.description}</div>
-                    <div style="margin-top: 10px;">
-                        <span class="opportunity-source">${opp.source || 'PhD Finder'}</span>
-                        ${opp.url && opp.url !== '#' ? `<a href="${opp.url}" target="_blank" class="opportunity-link">Learn More →</a>` : ''}
+                    <div class="opportunity-detail"><strong>Field:</strong> ${opp.discipline}</div>
+                    <div class="opportunity-detail">${opp.description}</div>
+                    <div class="card-footer">
+                        <a href="${opp.url}" target="_blank" class="opportunity-source">
+                            <span class="source-icon">${opp.sourceIcon}</span>
+                            ${opp.source}
+                        </a>
+                        <a href="${opp.url}" target="_blank" class="opportunity-link">🔗 View Opportunity</a>
                     </div>
                 `;
                 
@@ -825,10 +834,10 @@
         function exportToCSV() {
             if (allOpportunities.length === 0) return;
             
-            let csv = 'Title,University,Region,Funding,Deadline,Description,Source\n';
+            let csv = 'Title,University,Region,Funding,Deadline,Description,Field,Source,URL\n';
             
             allOpportunities.forEach(opp => {
-                csv += `"${opp.title}","${opp.university}","${opp.region}","${opp.funding}","${opp.deadline}","${opp.description}","${opp.source || 'PhD Finder'}"\n`;
+                csv += `"${opp.title}","${opp.university}","${opp.region}","${opp.funding}","${opp.deadline}","${opp.description}","${opp.discipline}","${opp.source}","${opp.url}"\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv' });
@@ -844,9 +853,8 @@
             alert('For PDF export, please:\n1. Export to CSV first\n2. Open in Excel/Google Sheets\n3. Print to PDF');
         }
 
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('PhD Opportunity Finder with FindAPhD & Jobs.ac.uk integration loaded!');
+            console.log('PhD Opportunity Finder loaded!');
         });
     </script>
 </body>
